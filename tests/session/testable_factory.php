@@ -164,6 +164,32 @@ class phpbb_session_testable_factory
 		return $this->server_data = array_merge($this->server_data, $server_data);
 	}
 
+    /**
+     * Set cookies, merge config and server data in one step.
+     *
+     * New values overwrite old ones.
+     *
+     * @param $session_id
+     * @param $user_id
+     * @param $user_agent
+     * @param $ip
+     * @param int $time
+     */
+    public function merge_test_data($session_id, $user_id, $user_agent, $ip, $time=0)
+    {
+        $this->set_cookies(array(
+            '_sid' => $session_id,
+            '_u' => $user_id,
+        ));
+        $this->merge_config_data(array(
+            'session_length' => time() + $time, // need to do this to allow sessions started at time 0
+        ));
+        $this->merge_server_data(array(
+            'HTTP_USER_AGENT' => $user_agent,
+            'REMOTE_ADDR' => $ip,
+        ));
+    }
+
 	/**
 	* Retrieve all server variables to be passed to the session.
 	*
