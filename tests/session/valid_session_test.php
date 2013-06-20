@@ -16,7 +16,8 @@ class phpbb_valid_session_test extends phpbb_database_test_case
         return $this->createXMLDataSet(dirname(__FILE__).'/fixtures/sessions_full.xml');
     }
 
-    private function access_with($session_id, $user_id, $user_agent, $ip) {
+    private function access_with($session_id, $user_id, $user_agent, $ip)
+    {
         $db = $this->new_dbal();
         $session_factory = new phpbb_session_testable_factory;
         $session_factory->merge_test_data($session_id, $user_id, $user_agent, $ip);
@@ -29,7 +30,8 @@ class phpbb_valid_session_test extends phpbb_database_test_case
         return $session;
     }
 
-    private function check_session_equals($expected_sessions, $message) {
+    private function check_session_equals($expected_sessions, $message)
+    {
         $sql = 'SELECT session_id, session_user_id
 			    FROM phpbb_sessions
 			    ORDER BY session_user_id';
@@ -37,9 +39,6 @@ class phpbb_valid_session_test extends phpbb_database_test_case
         $this->assertSqlResultEquals($expected_sessions, $sql, $message);
     }
 
-    /**
-     * Access with a valid session, and new ones shouldn't be created.
-     */
     public function test_session_valid_session_exists()
     {
         $session = $this->access_with('bar_session000000000000000000000', '4', 'user agent', '127.0.0.1');
@@ -53,9 +52,6 @@ class phpbb_valid_session_test extends phpbb_database_test_case
         );
     }
 
-    /**
-     * Wrong data in, should delete that session and make a new, anonymous one.
-     */
     public function test_session_invalid_make_new_annon_session()
     {
         $session = $this->access_with('anon_session00000000000000000000', '4', 'user agent', '127.0.0.1');
