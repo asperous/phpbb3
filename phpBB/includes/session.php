@@ -40,24 +40,18 @@ class phpbb_session
 	*/
 	static function extract_current_page($root_path)
 	{
-        global $request;
-        $server = $request->server;
-        return self::extract_current_page_($root_path, $server('PHP_SELF'), $server('QUERY_STRING'), $server('REQUEST_URI'));
-    }
+		global $request;
 
-    static function extract_current_page_with_variables($root_path, $script_name, $query_string, $request_uri)
-    {
 		$page_array = array();
 
 		// First of all, get the request uri...
-		$script_name = htmlspecialchars_decode($script_name);
-		$args = explode('&', htmlspecialchars_decode($query_string));
-
+		$script_name = htmlspecialchars_decode($request->server('PHP_SELF'));
+		$args = explode('&', htmlspecialchars_decode($request->server('QUERY_STRING')));
 
 		// If we are unable to get the script name we use REQUEST_URI as a failover and note it within the page array for easier support...
 		if (!$script_name)
 		{
-			$script_name = htmlspecialchars_decode($request_uri);
+			$script_name = htmlspecialchars_decode($request->server('REQUEST_URI'));
 			$script_name = (($pos = strpos($script_name, '?')) !== false) ? substr($script_name, 0, $pos) : $script_name;
 			$page_array['failover'] = 1;
 		}
