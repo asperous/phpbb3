@@ -9,7 +9,19 @@
 <!-- IF META -->{META}<!-- ENDIF -->
 <title>{PAGE_TITLE}</title>
 
+<link href='http://fonts.googleapis.com/css?family=Lato:300,400,900,300italic,400italic' rel='stylesheet' type='text/css'>
+
 <link href="style/admin.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="stylesheet" href="{ROOT_PATH}font-awesome/css/font-awesome.min.css">
+<!--[if IE 7]>
+<link rel="stylesheet" href="{ROOT_PATH}font-awesome/css/font-awesome-ie7.min.css">
+<![endif]-->
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js">
+</script>
+
+ 
+
 
 <script type="text/javascript">
 // <![CDATA[
@@ -129,14 +141,11 @@ function switch_menu()
 			menu_state = 'hidden';
 			menu.style.display = 'none';
 			toggle.style.width = '20px';
-			handle.style.backgroundImage = 'url(images/toggle.gif)';
 			handle.style.backgroundRepeat = 'no-repeat';
 
 			<!-- IF S_CONTENT_DIRECTION eq 'rtl' -->
-				handle.style.backgroundPosition = '0% 50%';
 				toggle.style.left = '96%';
 			<!-- ELSE -->
-				handle.style.backgroundPosition = '100% 50%';
 				toggle.style.left = '0';
 			<!-- ENDIF -->
 		break;
@@ -147,7 +156,6 @@ function switch_menu()
 			menu_state = 'shown';
 			menu.style.display = 'block';
 			toggle.style.width = '5%';
-			handle.style.backgroundImage = 'url(images/toggle.gif)';
 			handle.style.backgroundRepeat = 'no-repeat';
 
 			<!-- IF S_CONTENT_DIRECTION eq 'rtl' -->
@@ -166,34 +174,53 @@ function switch_menu()
 </head>
 
 <body class="{S_CONTENT_DIRECTION}">
-
-<div id="wrap">
-	<div id="page-header">
-		<h1>{L_ADMIN_PANEL}</h1>
-		<p><a href="{U_ADM_INDEX}">{L_ADMIN_INDEX}</a> &bull; <a href="{U_INDEX}">{L_FORUM_INDEX}</a></p>
-		<p id="skip"><a href="#acp">{L_SKIP}</a></p>
-	</div>
-	
-	<div id="page-body">
-		<div id="tabs">
+<div id="top-nav">
+<p><a href="{U_ADM_INDEX}">{L_ADMIN_INDEX}</a> – <a href="{U_INDEX}" target="_blank">{L_FORUM_INDEX}</a></p>
+<div style="clear:both;"></div>
+</div>
+	<div id="admin-header" style="background:#33363Bs;">
+		<div class="wrap">
+		<div style="float:left;">
+			<br />
+			<img alt="" src="images/phpbb_logo.png" style="padding-bottom: 10px;">
+			<!--<br />
+			<h1 style="color: white !important;">{L_ADMIN_PANEL}</h1>-->
+		</div>
+		<div style="float:right;text-align: right; color: white !important;">
+			<p style="padding-top:5px; color: white !important;"><strong>{USERNAME}</strong><br /><a style="color: white;" href="{U_LOGOUT}">{L_LOGOUT}</a><br /><a style="color: white;" href="{U_ADM_LOGOUT}">{L_ADM_LOGOUT}</a></p>
+		</div>
+		</div>
+		<div style="clear:both";></div>
+<br />
+	<div class="wrapper">
+				<div id="tabs">
 			<ul>
-			<!-- BEGIN t_block1 -->
+				<!-- IF not S_USER_NOTICE --> 
+				<li style="float:right">
+				<a style="text-decoration: none; width: 45px;"id="toggle-handle" accesskey="m" title="{L_MENU_TOGGLE}" onclick="switch_menu(); return false;" href="#"><span style="background:#D24D33;color: white;"><i class="icon-reorder"></i></span></a>
+				</li>
+				<!-- ENDIF -->
+
+				<!-- BEGIN t_block1 -->
 				<li<!-- IF t_block1.S_SELECTED --> id="activetab"<!-- ENDIF -->><a href="{t_block1.U_TITLE}"><span>{t_block1.L_TITLE}</span></a></li>
-			<!-- END t_block1 -->
+				<!-- END t_block1 -->
 			</ul>
 		</div>
+	</div>
+</div>
+	<div id="page-body">
+		
+		<div style="background: #F0F0ED;">
+		<div class="wrapper">
+
 
 		<div id="acp">
+
 		<div class="panel">
 			<span class="corners-top"><span></span></span>
 				<div id="content">
-					<!-- IF not S_USER_NOTICE --> 
-					<div id="toggle">
-						<a id="toggle-handle" accesskey="m" title="{L_MENU_TOGGLE}" onclick="switch_menu(); return false;" href="#"></a></div>
-					<!-- ENDIF -->
 					<div id="menu">
-						<p>{L_LOGGED_IN_AS}<br /><strong>{USERNAME}</strong> [&nbsp;<a href="{U_LOGOUT}">{L_LOGOUT}</a>&nbsp;][&nbsp;<a href="{U_ADM_LOGOUT}">{L_ADM_LOGOUT}</a>&nbsp;]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-						<ul>
+						<ul style="margin-top: -15px;">
 						<!-- DEFINE $LI_USED = 0 -->
 						<!-- BEGIN l_block1 -->
 							<!-- IF l_block1.S_SELECTED -->
