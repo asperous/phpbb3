@@ -101,4 +101,11 @@ interface phpbb_session_storage_interface_session
 	 * @return array
 	 */
 	function get_with_user_id($user_id);
+
+	/** Set user session visibility
+	 *
+	 * @param int $user_id sessions with user_id to change
+	 * @param bool $viewonline true: set visible, false: set invisible
+	 */
+	function set_viewonline($user_id, $viewonline);
 }

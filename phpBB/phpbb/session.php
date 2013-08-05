@@ -1379,6 +1379,12 @@ class phpbb_session
 		$this->db_session->unset_admin($this->session_id);
 	}
 
+	function set_viewonline($viewonline)
+	{
+		$this->db_session->set_viewonline($this->data['user_id'], $viewonline);
+		$this->data['session_viewonline'] = $viewonline;
+	}
+
 	/**
 	* Update the session data
 	*
